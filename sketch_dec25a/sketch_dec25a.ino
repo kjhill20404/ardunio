@@ -170,12 +170,12 @@ int pot_cont(){
 
 void loop() {
 //for setting the mode
-  if(digitalRead(12)==LOW){
-    mode = mode + 1;
-    if(mode ==3){
-      mode = 1;
-    }
-  }
+  //if(digitalRead(12)==LOW){
+   //mode = mode + 1;
+    //if(mode ==3){
+      //mode = 1;
+    //}
+  //}
   
   //Set the font size
   display.setTextSize(2);
