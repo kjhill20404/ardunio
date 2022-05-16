@@ -1,4 +1,5 @@
- #include <Servo.h>
+#include <Adafruit_PWMServoDriver.h>
+#include <Servo.h>
 #include <Wire.h>
 //for the display {
 #include <Adafruit_GFX.h>
@@ -151,13 +152,13 @@ int pot_cont(){
   servo2.write(dataServo2+dirServo2Offset);//goes to dataServo2 degrees 
   servo3.write(dataServo3+dirServo3Offset);//goes to dataServo3 degrees 
   servo4.write(dataServo4+dirServo4Offset);//goes to dataServo4 degrees 
-  servo5.write(dataServo5+dirServo5Offset);//goes to dataServo5 degrees 
+  //servo5.write(dataServo5+dirServo5Offset);//goes to dataServo5 degrees 
 
   val1 = map(analogRead(0), 0, 1023, 0, 180);  
   val2 = map(analogRead(1), 0, 1023, 0, 180);  
   val3 = map(analogRead(2), 0, 1023, 0, 180);  
   val4 = map(analogRead(3), 0, 1023, 0, 180);
-  val5 = map(analogRead(6), 0, 1023, 35, 90);  
+  //val5 = map(analogRead(6), 0, 1023, 35, 90);  
  
   if(dataServo1>val1){dataServo1--;  }
   if(dataServo1<val1){dataServo1++;  }
@@ -178,19 +179,22 @@ int pot_cont(){
   if(dataServo4<val4){dataServo4++;  }
   if(dataServo4>180) {dataServo4=180;}
   if(dataServo4<0)   {dataServo4=0;  }
-  
-  if(dataServo5>val5){dataServo5--;  }
-  if(dataServo5<val5){dataServo5++;  }
-  if(dataServo5>90) {dataServo5=90;}
-  if(dataServo5<35)  {dataServo5=35; }
+
+
+  int a;
+  a = ultrasonic_sensor();
+//  if(dataServo5>val5){dataServo5--;  }
+//  if(dataServo5<val5){dataServo5++;  }
+//  if(dataServo5>90) {dataServo5=90;}
+//  if(dataServo5<35)  {dataServo5=35; }
   delay(20);//wait for 0.05second
   
   }
   
 
 void loop() {
-  int a;
-  a = ultrasonic_sensor();
+//  int a;
+//  a = ultrasonic_sensor();
 
    int c;
    c = pot_cont();

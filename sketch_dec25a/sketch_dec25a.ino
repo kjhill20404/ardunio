@@ -14,7 +14,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, OLED_RESET);
 
 int mode;
 int pot_set;
-
+int deg;
 long duration;
 int distance;
 //}
@@ -60,7 +60,7 @@ void setup() {
   pinMode(echoPin, INPUT);
   Serial.begin(9600);
   //}
-  pinMode(12,INPUT);
+  pinMode(48,INPUT);
   
   mode=1;
   pot_set=0;
@@ -113,10 +113,27 @@ int ultrasonic_sensor() {
 
 int arm_idle_pos() {
   //for servo {
-  servo1.write(0);
-  servo2.write(0);
+  int i;
+  i = ultrasonic_sensor();
+  
+  deg =0;
+  
+  servo1.write(deg);
+  Serial.print("  servo1 ");
+  Serial.print(deg);
+  servo2.write(deg);
+  Serial.print( "  servo2 ");
+  Serial.print(deg);
+  deg = 45;
+  
   servo3.write(45);
-  servo4.write(90);
+  Serial.print("  servo3 ");
+  Serial.print(deg);
+  deg=90;
+  servo4.write(deg);
+  Serial.print("  servo4 ");
+  Serial.print(deg);
+  
 }
 
 int pot_setup(){
@@ -170,13 +187,21 @@ int pot_cont(){
 
 void loop() {
 //for setting the mode
-  //if(digitalRead(12)==LOW){
-   //mode = mode + 1;
-    //if(mode ==3){
-      //mode = 1;
-    //}
-  //}
+  if(digitalRead(48)==HIGH){
+    mode = mode + 1;
+    if(mode ==3){
+      mode = 1;
+    }
+if(pot_set==0){
+      int b;
+      b = pot_setup();
+      }
+      int c;
+      c = pot_cont();
+    
+    }
   
+  Serial.print(digitalRead(48));
   //Set the font size
   display.setTextSize(2);
   //Set the display location
@@ -186,23 +211,22 @@ void loop() {
   //Began to show
   display.display();
   //}
-   if(mode == 1){
-    int i;
+   if(digitalRead(48) == LOW){
     int a;
-    i = ultrasonic_sensor();
     a = arm_idle_pos();
+    
     if(digitalRead(4)==LOW){
       int y;
       y = when_buttonpress();
       }
    }
    if(mode==2){
-    if(pot_set==0){
-      int b;
-      b = pot_setup();
-      }
-      int c;
-      c = pot_cont();
-    
+//    if(pot_set==0){
+//      int b;
+//      b = pot_setup();
+//      }
+//      int c;
+//      c = pot_cont();
+//    
    }
 }
